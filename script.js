@@ -4,33 +4,32 @@ function computerPlay() {
   return options[random];
 }
 
-function round(playerMove, computerMove) {
-  let win = true;
-  let lowercase = playerMove.toLowerCase();
-  playerMove = lowercase.slice(0, 1).toUpperCase() + lowercase.slice(1);
-  if (playerMove === computerMove) {
-    return `You Draw with ${playerMove}`;
+function playerChoose() {
+  return input = prompt("Rock. Paper. Scissors. Shoot!");
+}
+
+function playRound(player, opponent) {
+  let win;
+  let lowercase = player.toLowerCase();
+  player = lowercase.slice(0, 1).toUpperCase() + lowercase.slice(1);
+  if (opponent === player) {
+    return `You Draw with ${opponent}`;
   } else {
-    if (computerMove === "rock") {
-      if (playerMove === "paper") win = true;
-      if (playerMove === "scissor") win = false;
-    } else if (computerMove === "paper") {
-      if (playerMove === "scissor") win = true;
-      if (playerMove === "rock") win = false; 
-    } else if (computerMove === "scissors") {
-      if (playerMove === "rock") win = true;
-      if (playerMove === "paper") win = false;
+    if (opponent === "Rock") {
+      player === "Paper" ? win = true : win = false;
+    } else if (opponent === "Paper") {
+      player === "Scissors" ? win = true : win = false;
+    } else if (opponent === "Scissors") {
+      player === "Rock" ? win = true : win = false;
     }
-    let res = win ? `You Win! ${playerMove} beats ${computerMove}` :
-                    `You Lose! ${computerMove} beats ${playerMove}`;
-    return res;
+    return win === true ? `You Win! ${player} beats ${opponent}` : 
+                          `You Lose! ${opponent} beats ${player}`;
   }
 }
 
 function game(rounds = 5) {
-  while(rounds > 0) {
-    let playerPlay = prompt("Rock Paper Scissors Shoot");
-    console.log(round(playerPlay, computerPlay()));
+  while (rounds > 0) {
+    console.log(playRound(playerChoose(), computerPlay()));
     rounds--;
   }
 }
