@@ -89,3 +89,15 @@ main {
 #paper { width: 40px; }
 #scissors { width: 40px; }
 
+#select-info a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+#credit a { 
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  color: #ffffff; 
+  font-size: 10px;
+}
