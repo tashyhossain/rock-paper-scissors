@@ -1,7 +1,7 @@
-let result = document.querySelector('#result').textContent;
-let summary = document.querySelector('#summary').textContent;
-let playerScore = document.querySelector('#player').textContent;
-let computerScore = document.querySelector('#computer').textContent;
+let result = document.querySelector('#result');
+let summary = document.querySelector('#summary');
+let playerScore = document.querySelector('#player');
+let computerScore = document.querySelector('#computer');
 
 function computerPlay() {
   const options = ["Rock", "Paper", "Scissors"];
@@ -15,14 +15,13 @@ function playRound(player, computer) {
     paper: 'Paper Covers Rock', 
     rock: 'Rock breaks Scissors',
     scissors: 'Scissors cut Paper', 
-    none: '\t' 
+    draw: `Standoff with ${player}` 
   };
 
   let won;
   let final = { res: res, msg: msg, won: won };
-
   if (player == computer) {
-    final = { res: res.tied, msg: msg.none, won: false };
+    final = { res: res.tied, msg: msg.draw, won: null };
   } else {
     if (computer == 'Rock') {
       if (player == 'Paper') {
@@ -44,12 +43,53 @@ function playRound(player, computer) {
       }
     }
   }
-  return { result: final.res, summary: final.msg, won: final.won };
+  return { res: final.res, sum: final.msg, won: final.won };
 }
 
-console.log(playRound('Rock', computerPlay()));
-
-function playGame(max) {
-  let 
+function update(round) {
+  let {res, sum, won} = round;
+  let player = parseInt(playerScore.textContent);
+  let computer = parseInt(computerScore.textContent);
+  if (round.won) {
+    player++;
+  } else if (round.won == false) {
+    computer++;
+  }
+  playerScore.textContent = player;
+  computerScore.textContent = computer;
+  result.textContent = round.res;
+  summary.textContent = round.sum;
 }
 
+playerScore.textContent = '0';
+computerScore.textContent = '0';
+
+function playGame(player) {
+  const rock = document.querySelector('#rock');
+  const paper = document.querySelector('#paper');
+  const scissors = document.querySelector('#scissors');
+
+  let playerPlay = '';
+  let score1 = parseInt(playerScore.textContent);
+  let score2 = parseInt(computerScore.textContent);
+  let info = document.querySelector('#select-info');
+  let playerWin = document.querySelector('#player-score');
+
+  if (score1 <= 4 && score2 <= 4) {
+    update(playRound(player, computerPlay()));
+  } else {
+    if (score1 == 5) playerWin.textContent = 'Winner :)';
+    else if (score2 == 5) playerWin.textContent = 'Loser :(';
+    info.textContent = 'Refresh to Play Again!';
+  }
+}
+
+rock.addEventListener('click', () => {
+  playGame('Rock');
+});
+paper.addEventListener('click', () => {
+  playGame('Paper');
+});
+scissors.addEventListener('click', () => {
+  playGame('Scissors');
+});
