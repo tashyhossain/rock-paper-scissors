@@ -12,7 +12,7 @@ function computerPlay() {
 function playRound(player, computer) {
   const res = { won: 'You Win!', lost: 'You Lose!', tied: 'You Draw!' };
   const msg = { 
-    paper: 'Paper Covers Rock', 
+    paper: 'Paper covers Rock', 
     rock: 'Rock breaks Scissors',
     scissors: 'Scissors cut Paper', 
     draw: `Standoff with ${player}` 
